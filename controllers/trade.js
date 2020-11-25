@@ -15,7 +15,7 @@ const addTradeValidator = [
         }
     }),
     check('tradeType', 'Trade type is required').not().isEmpty().trim(),
-    check('buyPrice', 'Enter a valid price').isInt({ gt: 0 }),
+    check('buyPrice', 'Enter a valid price').isFloat({ gt: 0 }),
     check('quantity', 'Enter a positive integer').isInt({ gt: 0 }),
 ]
 
@@ -186,7 +186,7 @@ tradeRouter.post('/delete', deleteTradeValidator, middleware.catchError( async (
     if(oldTrade.tradeType.toUpperCase()==='BUY'){
         if(pfolio.shares<oldTrade.quantity){
             return response.status(400).json({ errors: [{
-                "msg": "Doing this will turn your make your number of shares negative"
+                "msg": "Doing this will make your number of shares negative"
             }]})
         }
         else if(pfolio.shares===oldTrade.quantity){

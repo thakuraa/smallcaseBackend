@@ -11,7 +11,7 @@ fetchRouter.get('/portfolio', async (request,response) => {
 //Fetching trades
 //Endpoint: '/api/fetch/trades'
 fetchRouter.get('/trades', async (request, response) => {
-    let trade = await Portfolio.find().select('-_id -avgBuyPrice -shares -__v').populate('trades','-id -__v -ticker')
+    let trade = await Portfolio.find().select('-_id -avgBuyPrice -shares -__v').populate('trades','-_id -__v -ticker')
     response.send(trade)
 })
 
