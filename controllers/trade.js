@@ -122,6 +122,11 @@ tradeRouter.post('/update', updateTradeValidator, middleware.catchError( async (
         buyPrice,
         quantity
     } = request.body
+    if(tradeType.toUpperCase()!=='BUY' && tradeType.toUpperCase()!=='SELL'){
+        return response.status(400).json({ errors: [{
+            "msg": "Trade type should either be BUY or SELL"
+        }]})
+    }
     const oldTrade = await Trades.findOne({ t_id: t_id })
     if(!oldTrade){
         return response.status(400).json({ errors: [{
